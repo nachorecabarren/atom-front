@@ -45,9 +45,9 @@ export class LoginComponent {
       .findUserByEmail(email)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (user) => {
+        next: (response) => {
           this.isLoading = false;
-          if (user) {
+          if (response.user) {
             this.authService.setLoggedIn();
             this.router.navigate(['/tasks']);
           } else {
