@@ -49,6 +49,7 @@ export class LoginComponent {
           this.isLoading = false;
           if (response.user) {
             this.authService.setLoggedIn();
+            this.authService.setCurrentUser(response.user);
             this.router.navigate(['/tasks']);
           } else {
             this.pendingEmail = email;
@@ -69,9 +70,10 @@ export class LoginComponent {
       .createUser(this.pendingEmail)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
+        next: (user) => {
           this.isLoading = false;
           this.authService.setLoggedIn();
+          this.authService.setCurrentUser(user);
           this.router.navigate(['/tasks']);
         },
         error: () => {
