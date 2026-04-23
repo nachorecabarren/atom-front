@@ -13,8 +13,8 @@ export interface User {
 export class AuthService {
   // private readonly apiUrl =
   //   'http://127.0.0.1:5001/atom-challenge-a52c7/us-central1/api';
-  private readonly apiUrl = "/api";
-
+  private readonly apiUrl = '/api';
+  private currentUser: User | null = null;
 
   constructor(
     private http: HttpClient,
@@ -28,16 +28,10 @@ export class AuthService {
   }
 
   createUser(email: string): Observable<User> {
-    return this.http.post<User>(
-      `${this.apiUrl}/users`,
-      { email },
-    );
+    return this.http.post<User>(`${this.apiUrl}/users`, { email });
   }
 
   logout(): void {
-    this.http
-      .post(`${this.apiUrl}/auth/logout`, {})
-      .subscribe();
     localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/login']);
   }
@@ -48,5 +42,13 @@ export class AuthService {
 
   setLoggedIn(): void {
     localStorage.setItem('isLoggedIn', 'true');
+  }
+
+  setCurrentUser(user: User): void {
+    this.currentUser = user;
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUser;
   }
 }

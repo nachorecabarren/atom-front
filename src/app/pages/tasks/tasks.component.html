@@ -1,1 +1,87 @@
-<p>tasks works!</p>
+<div class="tasks-container">
+  <div class="tasks-header">
+    <h1>Mis tareas</h1>
+    <div class="header-actions">
+      <button class="btn-primary" (click)="showCreateForm = true">
+        + Nueva tarea
+      </button>
+      <button class="btn-logout" (click)="onLogout()">Cerrar sesión</button>
+    </div>
+  </div>
+
+@if (showCreateForm) {
+  <div class="dialog-overlay">
+    <div class="dialog">
+      <h2>{{ editingTask ? 'Editar tarea' : 'Nueva tarea' }}</h2>
+      <form [formGroup]="taskForm" (ngSubmit)="editingTask ? onSaveEdit() : onCreateTask()">
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" formControlName="title" placeholder="Título de la tarea" />
+          @if (taskForm.get('title')?.invalid && taskForm.get('title')?.touched) {
+            <span class="error-message">El título es requerido</span>
+          }
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea formControlName="description" placeholder="Descripción de la tarea" rows="3"></textarea>
+          @if (taskForm.get('description')?.invalid && taskForm.get('description')?.touched) {
+            <span class="error-message">La descripción es requerida</span>
+          }
+        </div>
+        <div class="dialog-actions">
+          <button type="button" class="btn-secondary" (click)="onCancelForm()">Cancelar</button>
+          <button type="submit" class="btn-primary" [disabled]="taskForm.invalid || isLoading">
+            @if (isLoading) {
+              <span>Guardando...</span>
+            } @else {
+              <span>{{ editingTask ? 'Guardar' : 'Crear' }}</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
+
+  <div class="tasks-list">
+    @if (isLoading && tasks.length === 0) {
+      <p class="empty-state">Cargando tareas...</p>
+    } @else if (tasks.length === 0) {
+      <p class="empty-state">No tenés tareas pendientes. ¡Creá una!</p>
+    } @else {
+      @for (task of tasks; track task.id) {
+        <div class="task-card">
+          <div
+            class="task-status-indicator"
+            [class.pending]="task.status === 'pending'"
+            [class.completed]="task.status === 'completed'"
+          ></div>
+          <div class="task-content">
+            <div class="task-header">
+              <h3 [class.completed-text]="task.status === 'completed'">
+                {{ task.title }}
+              </h3>
+              <span class="task-date">{{
+                task.createdAt | date: "dd/MM/yyyy"
+              }}</span>
+            </div>
+            <p>{{ task.description }}</p>
+          </div>
+          <div class="task-actions">
+            @if (task.status === "pending") {
+              <button class="btn-status pending" (click)="onUpdateTask(task)">
+                Pendiente
+              </button>
+            } @else {
+              <button class="btn-status completed" (click)="onUpdateTask(task)">
+                Completada
+              </button>
+            }
+            <button class="btn-edit" (click)="onEditTask(task)">Editar</button>
+            <button class="btn-delete" (click)="onDeleteTask(task.id)">Eliminar</button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
