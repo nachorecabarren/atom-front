@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "http://127.0.0.1:5001/atom-challenge-a52c7/us-central1",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
