@@ -1,0 +1,152 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #ff6b00;
+    }
+
+    &.invalid {
+      border-color: #e53e3e;
+    }
+  }
+}
+
+.error-message {
+  font-size: 0.8rem;
+  color: #e53e3e;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ff6b00;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: #e55f00;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+// responsive
+@media (max-width: 480px) {
+  .login-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .dialog {
+    margin: 1rem;
+  }
+}

@@ -11,18 +11,18 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'http://127.0.0.1:5001/atom-challenge-a52c7/us-central1/api';
+  private readonly apiUrl =
+    'http://127.0.0.1:5001/atom-challenge-a52c7/us-central1/api';
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) {}
 
-  login(): void {
-    this.http
-      .post(`${this.apiUrl}/auth/login`, {}, { withCredentials: true })
-      .subscribe();
-    this.router.navigate(['/tasks']);
+  findUserByEmail(email: string): Observable<User | null> {
+    return this.http.get<User | null>(`${this.apiUrl}/users?email=${email}`, {
+      withCredentials: true,
+    });
   }
 
   createUser(email: string): Observable<User> {
@@ -37,10 +37,15 @@ export class AuthService {
     this.http
       .post(`${this.apiUrl}/auth/logout`, {}, { withCredentials: true })
       .subscribe();
+    localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('isLoggedIn');
+  }
+
+  setLoggedIn(): void {
+    localStorage.setItem('isLoggedIn', 'true');
   }
 }

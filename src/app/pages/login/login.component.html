@@ -1,1 +1,64 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-title">Bienvenido</h1>
+    <p class="login-subtitle">Ingresá tu email para continuar</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [class.invalid]="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+          "
+        />
+        @if (
+          loginForm.get("email")?.invalid && loginForm.get("email")?.touched
+        ) {
+          <span class="error-message">Ingresá un email válido</span>
+        }
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || isLoading"
+        class="btn-primary"
+      >
+        @if (isLoading) {
+          <span>Cargando...</span>
+        } @else {
+          <span>Ingresar</span>
+        }
+      </button>
+    </form>
+  </div>
+</div>
+
+@if (showCreateDialog) {
+  <div class="dialog-overlay">
+    <div class="dialog">
+      <h2>Crear cuenta</h2>
+      <p>
+        No encontramos una cuenta con <strong>{{ pendingEmail }}</strong
+        >. ¿Querés crearla?
+      </p>
+      <div class="dialog-actions">
+        <button class="btn-secondary" (click)="onCancelCreate()">
+          Cancelar
+        </button>
+        <button
+          class="btn-primary"
+          (click)="onConfirmCreate()"
+          [disabled]="isLoading"
+        >
+          @if (isLoading) {
+            <span>Creando...</span>
+          } @else {
+            <span>Crear cuenta</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}
