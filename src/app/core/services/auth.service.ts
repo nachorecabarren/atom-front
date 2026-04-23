@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, DestroyRef, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface User {
   id: string;
@@ -15,6 +16,7 @@ export class AuthService {
   //   'http://127.0.0.1:5001/atom-challenge-a52c7/us-central1/api';
   private readonly apiUrl = '/api';
   private currentUser: User | null = null;
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private http: HttpClient,
@@ -32,6 +34,11 @@ export class AuthService {
   }
 
   logout(): void {
+    this.http
+      .post('/auth/logout', {})
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
+    this.currentUser = null;
     localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/login']);
   }
