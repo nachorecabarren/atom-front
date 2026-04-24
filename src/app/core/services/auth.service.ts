@@ -35,7 +35,7 @@ export class AuthService {
 
   logout(): void {
     this.http
-      .post('/auth/logout', {})
+      .post(`${this.apiUrl}/users/logout`, {})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         error: () => console.error('Error during logout'),
