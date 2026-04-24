@@ -25,6 +25,7 @@ export class TasksComponent implements OnInit {
   isLoading = false;
   showCreateForm = false;
   editingTask: Task | null = null;
+  selectedDate: Date | null = null;
 
   taskForm: FormGroup;
 
@@ -42,6 +43,59 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTasks();
+    this.selectedDate = new Date();
+  }
+
+  get filteredAndSortedTasks(): Task[] {
+    let filtered = [...this.tasks];
+
+    // Filtrar por fecha si está seleccionada
+    if (this.selectedDate) {
+      const selectedDay = new Date(this.selectedDate);
+      selectedDay.setHours(0, 0, 0, 0);
+      const nextDay = new Date(selectedDay);
+      nextDay.setDate(nextDay.getDate() + 1);
+
+      filtered = filtered.filter((task) => {
+        const taskDate = new Date(task.createdAt);
+        taskDate.setHours(0, 0, 0, 0);
+        return taskDate >= selectedDay && taskDate < nextDay;
+      });
+    }
+
+    // Ordenar cronológicamente (más vieja primero)
+    return filtered.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
+  }
+
+  onPreviousDay(): void {
+    if (this.selectedDate) {
+      const prevDay = new Date(this.selectedDate);
+      prevDay.setDate(prevDay.getDate() - 1);
+      this.selectedDate = prevDay;
+    }
+  }
+
+  onNextDay(): void {
+    if (this.selectedDate) {
+      const nextDay = new Date(this.selectedDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      this.selectedDate = nextDay;
+    }
+  }
+
+  onDateChange(event: any): void {
+    const date = event.target.value;
+    if (date) {
+      this.selectedDate = new Date(date + 'T00:00:00');
+    }
+  }
+
+  getFormattedDate(): string {
+    if (!this.selectedDate) return '';
+    return this.selectedDate.toISOString().split('T')[0];
   }
 
   loadTasks(): void {
@@ -85,20 +139,6 @@ export class TasksComponent implements OnInit {
         },
         error: () => {
           this.isLoading = false;
-        },
-      });
-  }
-
-  onToggleStatus(task: Task): void {
-    const newStatus = task.status === 'pending' ? 'completed' : 'pending';
-    this.taskService
-      .updateTaskStatus(task.id, newStatus)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (updated) => {
-          this.tasks = this.tasks.map((t) =>
-            t.id === updated.id ? updated : t,
-          );
         },
       });
   }
@@ -154,9 +194,7 @@ export class TasksComponent implements OnInit {
           this.tasks = this.tasks.map((t) =>
             t.id === updated.id ? updated : t,
           );
-          this.taskForm.reset();
-          this.showCreateForm = false;
-          this.editingTask = null;
+          this.resetForm();
           this.isLoading = false;
         },
         error: () => {
@@ -165,10 +203,14 @@ export class TasksComponent implements OnInit {
       });
   }
 
-  onCancelForm(): void {
+  private resetForm(): void {
     this.taskForm.reset();
     this.showCreateForm = false;
     this.editingTask = null;
+  }
+
+  onCancelForm(): void {
+    this.resetForm();
   }
 
   onLogout(): void {

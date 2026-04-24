@@ -37,7 +37,9 @@ export class AuthService {
     this.http
       .post('/auth/logout', {})
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe({
+        error: () => console.error('Error during logout'),
+      });
     this.currentUser = null;
     localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/login']);

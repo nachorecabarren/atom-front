@@ -1,38 +1,46 @@
 .tasks-container {
   max-width: 700px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
+  min-height: 100vh;
 }
 
 .tasks-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 
   h1 {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
     font-weight: 600;
     color: #1a1a1a;
+    flex: 1;
+    min-width: 150px;
   }
 }
 
 .header-actions {
   display: flex;
-  gap: 12px;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .btn-primary {
-  padding: 0.75rem 1.25rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
   background-color: #ff6b00;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
   font-weight: 500;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: background-color 0.2s;
+  white-space: nowrap;
 
   &:hover:not(:disabled) {
     background-color: #e55f00;
@@ -45,15 +53,16 @@
 }
 
 .btn-secondary {
-  padding: 0.75rem 1.25rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
   background-color: white;
   color: #333;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: nowrap;
 
   &:hover {
     background-color: #f5f5f5;
@@ -61,15 +70,16 @@
 }
 
 .btn-logout {
-  padding: 0.75rem 1.25rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
   background-color: white;
   color: #333;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: nowrap;
 
   &:hover {
     background-color: #fff0f0;
@@ -79,15 +89,16 @@
 }
 
 .btn-delete {
-  padding: 0.4rem 0.85rem;
+  padding: clamp(0.35rem, 1.5vw, 0.4rem) clamp(0.6rem, 1.5vw, 0.85rem);
   background-color: white;
   color: #e53e3e;
   border: 1px solid #e53e3e;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  border-radius: 6px;
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 
   &:hover {
     background-color: #e53e3e;
@@ -103,13 +114,14 @@
 
 .task-card {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 12px;
   background: white;
   border: 1px solid #eee;
   border-radius: 12px;
-  padding: 1rem 1.25rem;
+  padding: clamp(0.75rem, 3vw, 1rem) clamp(0.75rem, 3vw, 1.25rem);
   transition: box-shadow 0.2s;
+  flex-wrap: wrap;
 
   &:hover {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -121,6 +133,7 @@
   height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
+  margin-top: 4px;
 
   &.pending {
     background-color: #f6ad55;
@@ -133,25 +146,30 @@
 
 .task-content {
   flex: 1;
+  min-width: 150px;
 
   p {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     color: #666;
-    margin-top: 4px;
+    margin-top: 6px;
     line-height: 1.5;
+    word-break: break-word;
   }
 }
 
 .task-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  width: 100%;
 
   h3 {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
     font-weight: 500;
     color: #1a1a1a;
+    flex: 1;
+    word-break: break-word;
 
     &.completed-text {
       text-decoration: line-through;
@@ -161,16 +179,20 @@
 }
 
 .task-date {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
   color: #aaa;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .task-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-shrink: 0;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-top: 8px;
 
   input[type="checkbox"] {
     width: 18px;
@@ -183,8 +205,8 @@
 .empty-state {
   text-align: center;
   color: #aaa;
-  padding: 3rem 0;
-  font-size: 0.95rem;
+  padding: 2rem 1rem;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
 }
 
 .dialog-overlay {
@@ -195,20 +217,23 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 1rem;
 }
 
 .dialog {
   background: white;
-  padding: 2rem;
+  padding: clamp(1.5rem, 4vw, 2rem);
   border-radius: 12px;
   width: 100%;
   max-width: 450px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  max-height: 90vh;
+  overflow-y: auto;
 
   h2 {
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     color: #1a1a1a;
   }
 }
@@ -220,17 +245,17 @@
   margin-bottom: 1.25rem;
 
   label {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     font-weight: 500;
     color: #333;
   }
 
   input,
   textarea {
-    padding: 0.75rem 1rem;
+    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
     font-family: 'Inter', sans-serif;
     outline: none;
     transition: border-color 0.2s;
@@ -243,7 +268,7 @@
 }
 
 .error-message {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
   color: #e53e3e;
 }
 
@@ -252,17 +277,19 @@
   justify-content: flex-end;
   gap: 12px;
   margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .btn-status {
-  padding: 0.5rem 1rem;
+  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.75rem, 1.5vw, 1rem);
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   cursor: pointer;
   border: none;
   transition: all 0.2s;
+  white-space: nowrap;
 
   &.pending {
     background-color: #fef3c7;
@@ -284,15 +311,16 @@
 }
 
 .btn-edit {
-  padding: 0.4rem 0.85rem;
+  padding: clamp(0.35rem, 1.5vw, 0.4rem) clamp(0.6rem, 1.5vw, 0.85rem);
   background-color: white;
   color: #ff6b00;
   border: 1px solid #ff6b00;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  border-radius: 6px;
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 
   &:hover {
     background-color: #ff6b00;
@@ -300,18 +328,284 @@
   }
 }
 
-@media (max-width: 480px) {
-  .tasks-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+.date-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  background-color: #fafafa;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  flex-wrap: wrap;
+}
+
+.date-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  label {
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
   }
 
-  .task-date {
-    display: none;
+  .date-input {
+    padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.5rem, 1.5vw, 0.75rem);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #ff6b00;
+    }
+  }
+}
+
+.btn-arrow {
+  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.6rem, 1.5vw, 1rem);
+  background-color: white;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #ff6b00;
+    color: white;
+    border-color: #ff6b00;
+  }
+}
+
+/* Tablet (768px y menor) */
+@media (max-width: 768px) {
+  .tasks-container {
+    padding: 1rem;
+  }
+
+  .task-card {
+    gap: 10px;
+    padding: 0.75rem 1rem;
+  }
+
+  .task-actions {
+    gap: 6px;
+  }
+
+  .btn-status,
+  .btn-edit,
+  .btn-delete {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8rem;
   }
 
   .dialog {
-    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .dialog-actions {
+    gap: 8px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Mobile (480px y menor) */
+@media (max-width: 480px) {
+  .tasks-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .tasks-header {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1rem;
+  }
+
+  .tasks-header h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .btn-primary,
+  .btn-logout {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-primary {
+    min-width: auto;
+  }
+
+  .date-filter {
+    gap: 8px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .date-input-group {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .date-input-group label {
+    font-size: 0.8rem;
+  }
+
+  .date-input-group .date-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-arrow {
+    flex: 1;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .task-card {
+    gap: 8px;
+    padding: 0.75rem;
+  }
+
+  .task-status-indicator {
+    width: 8px;
+    height: 8px;
+    margin-top: 6px;
+  }
+
+  .task-content {
+    min-width: auto;
+  }
+
+  .task-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .task-header h3 {
+    font-size: 0.9rem;
+  }
+
+  .task-date {
+    font-size: 0.75rem;
+    order: 3;
+    width: 100%;
+    display: block;
+  }
+
+  .task-actions {
+    gap: 6px;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .btn-status,
+  .btn-edit,
+  .btn-delete {
+    flex: 1;
+    min-width: 60px;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .dialog-overlay {
+    padding: 1rem;
+  }
+
+  .dialog {
+    padding: 1.25rem;
+    border-radius: 10px;
+  }
+
+  .dialog h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .dialog-actions {
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .btn-secondary {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Pantallas muy pequeñas (320px) */
+@media (max-width: 320px) {
+  .tasks-container {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .tasks-header h1 {
+    font-size: 1.15rem;
+  }
+
+  .btn-primary,
+  .btn-logout,
+  .btn-secondary {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .btn-status,
+  .btn-edit,
+  .btn-delete {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.4rem;
+  }
+
+  .date-filter {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn-arrow {
+    font-size: 0.65rem;
   }
 }
