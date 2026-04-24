@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Task {
   id: string;
@@ -17,10 +17,9 @@ export interface CreateTaskDto {
   userId: string;
 }
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: 'root' })
 export class TaskService {
-
-  private readonly apiUrl = "/api";
+  private readonly apiUrl = '/api';
 
   constructor(private http: HttpClient) {}
 
@@ -36,8 +35,8 @@ export class TaskService {
     return this.http.put<Task>(`${this.apiUrl}/tasks/${id}/status`, {status});
   }
 
-  updateTask(id: string, data: {title: string; description: string}): Observable<Task> {
-  return this.http.put<Task>(`${this.apiUrl}/tasks/${id}`, data);
+  updateTask(id: string, data: { title: string; description: string }): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/tasks/${id}`, data);
   }
 
   deleteTask(id: string): Observable<void> {
