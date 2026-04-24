@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { environment } from '../../../environments/environment';
 
 export interface User {
   id: string;
@@ -14,7 +15,7 @@ export interface User {
 export class AuthService {
   // private readonly apiUrl =
   //   'http://127.0.0.1:5001/atom-challenge-a52c7/us-central1/api';
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = environment.apiUrl;
   private currentUser: User | null = null;
   private destroyRef = inject(DestroyRef);
 
